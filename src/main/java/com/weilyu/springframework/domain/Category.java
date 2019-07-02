@@ -1,9 +1,16 @@
 package com.weilyu.springframework.domain;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import java.util.Set;
 
 
+@Data // includes args-constructor getters setter equal hashCode toString
+@EqualsAndHashCode(exclude = {"recipes"})
+// a circular reference is created because of the bi-directional relationship
+// and this will make lombok unhappy, we need to exclude the recipes from the automatically generated equal and hashcode function
 @Entity
 public class Category {
 
@@ -15,27 +22,4 @@ public class Category {
     @ManyToMany(mappedBy = "categories")
     private Set<Recipe> recipes;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public Set<Recipe> getRecipes() {
-        return recipes;
-    }
-
-    public void setRecipes(Set<Recipe> recipes) {
-        this.recipes = recipes;
-    }
 }
