@@ -12,7 +12,7 @@ import java.util.Set;
 // a circular reference is created because of the bi-directional relationship
 // and this will make lombok unhappy, we need to exclude the recipes from the automatically generated equal and hashcode function
 @Entity
-public class Category {
+public class Category { //opt + enter to create test
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
