@@ -1,5 +1,7 @@
 package com.weilyu.springframework.services;
 
+import com.weilyu.springframework.converters.RecipeCommandToRecipe;
+import com.weilyu.springframework.converters.RecipeToRecipeCommand;
 import com.weilyu.springframework.domain.Recipe;
 import com.weilyu.springframework.repositories.RecipeRepository;
 import org.junit.Before;
@@ -22,13 +24,19 @@ public class RecipeServiceImplTest {
     @Mock
     RecipeRepository recipeRepository;
 
+    @Mock
+    RecipeToRecipeCommand recipeToRecipeCommand;
+
+    @Mock
+    RecipeCommandToRecipe recipeCommandToRecipe;
+
     @Before
     public void setUp() throws Exception {
         //first initialize mock
         MockitoAnnotations.initMocks(this);
 
         //create recipe service
-        recipeService = new RecipeServiceImpl(recipeRepository);
+        recipeService = new RecipeServiceImpl(recipeRepository, recipeCommandToRecipe, recipeToRecipeCommand);
     }
 
 
