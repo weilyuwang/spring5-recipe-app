@@ -4,6 +4,7 @@ import com.weilyu.springframework.commands.RecipeCommand;
 import com.weilyu.springframework.converters.RecipeCommandToRecipe;
 import com.weilyu.springframework.converters.RecipeToRecipeCommand;
 import com.weilyu.springframework.domain.Recipe;
+import com.weilyu.springframework.exceptions.NotFoundException;
 import com.weilyu.springframework.repositories.RecipeRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
@@ -41,7 +42,8 @@ public class RecipeServiceImpl implements RecipeService{
 
         Optional<Recipe> recipeOptional = recipeRepository.findById(l);
         if(!recipeOptional.isPresent()) {
-            throw new RuntimeException("Recipe not found!");
+            //throw new RuntimeException("Recipe not found!");
+            throw new NotFoundException("Recipe Not Found");
         }
         return recipeOptional.get();
     }

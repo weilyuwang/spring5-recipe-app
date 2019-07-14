@@ -2,6 +2,7 @@ package com.weilyu.springframework.controllers;
 
 import com.weilyu.springframework.commands.RecipeCommand;
 import com.weilyu.springframework.domain.Recipe;
+import com.weilyu.springframework.exceptions.NotFoundException;
 import com.weilyu.springframework.services.RecipeService;
 import org.junit.Before;
 import org.junit.Test;
@@ -47,6 +48,15 @@ public class RecipeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/show"))
                 .andExpect(model().attributeExists("recipe"));
+    }
+
+    @Test
+    public void testGetRecipeNotFound() throws Exception {
+
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
